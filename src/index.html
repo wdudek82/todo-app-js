@@ -7,14 +7,27 @@
     <title>TODO App JS</title>
 </head>
 <body>
-    <main class="container">
+    <main class="container-fluid">
         <div class="row">
-            <div class="col-xs-0 col-md-2 side-bar">bla</div>
-            <div class="col-xs-12 col-md-8">
-                <h1>TODO App JS</h1>
-                <p>blue</p>
+            <div class="col-xs-1 col-md-2 sidebar"></div>
+            <div class="col-xs-10 col-md-8">
+                <header>
+                    <h1>TODO App JS</h1>
+                    <h2>List of tasks</h2>
+                </header>
+                <div>
+                    <input type="text" id="add-task" name="task" title="Add a new task to the list">
+                    <input type="submit" name="Add" onclick="obj.addTask()">
+
+                    <ul id="todo-list">
+                        <li>Task 1</li>
+                        <li>Task 2</li>
+                        <li>Task 3</li>
+                        <li>Task 4</li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-xs-0 col-md-2 side-bar">ble</div>
+            <div class="col-xs-1 col-md-2 sidebar"></div>
         </div>
     </main>
 
