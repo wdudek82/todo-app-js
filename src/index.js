@@ -1,35 +1,65 @@
 
 class ToDo {
+
     constructor() {
         this.listOfTasks = [];
         this.todoList = document.getElementById('todo-list');
     }
 
     addTask() {
-        let task = document.getElementById('add-task');
-        let taskContent = task.value;
+        let inputContent = document.getElementById('add-task');
+        let newTask = inputContent.value;
 
-        if (taskContent) {
-            this.listOfTasks.push(taskContent);
-            this.redrawList(taskContent);
+        if (newTask) {
+            this.listOfTasks.push(newTask);
+            inputContent.value = '';
+            this.listTasks();
         }
     }
 
-    redrawList(content) {
-        console.log('redrawing...');
-        this.todoList.innerHtml = null;
+    updateTask() {}
 
-        for (let task of this.listOfTasks) {
-            let newTask = document.createElement('li');
-            let textNode = document.createTextNode(content);
-            newTask.appendChild(textNode);
-            newTask.id = this.listOfTasks.indexOf(task);
-            this.todoList.appendChild(newTask);
+    deleteTask(taskId) {
+        let task = this.listOfTasks[taskId];
+        console.log(task, taskId);
+    }
 
-            console.log(task);
+    listTasks() {
+
+        this.todoList.innerHTML = '';
+
+        for (let [taskIndex, task] of this.listOfTasks.entries()) {
+            let newTaskNode = ToDo.createNode(taskIndex, task);
+            this.todoList.appendChild(newTaskNode);
         }
+
+        this.consolePrint();
+    }
+
+    static createNode(nodeId, nodeContent) {
+        let newNode = document.createElement('li');
+
+        let deleteButton = document.createElement('button');
+        let deleteText = document.createTextNode('x');
+        deleteButton.appendChild(deleteText);
+        deleteButton.setAttribute('onClick', `obj.deleteTask(${nodeId});`);
+
+        newNode.appendChild(deleteButton);
+
+        let textNode = document.createTextNode(" " + nodeContent);
+        newNode.appendChild(textNode);
+
+        newNode.id = nodeId;
+
+
+        return newNode;
+    }
+
+    consolePrint() {
+        console.log(this.listOfTasks);
     }
 
 }
+
 
 let obj = new ToDo();
