@@ -42,17 +42,13 @@ class ToDo {
     static createNode(nodeId, nodeContent) {
         let newNode = document.createElement('li');
         let textNode = document.createTextNode(' ' + nodeContent[0]);
-        let textColor = nodeContent[1] ? 'blue' : 'red';
-        newNode.style.color = textColor;
+        newNode.style.color = nodeContent[1] ? 'green' : 'red';
         newNode.id = nodeId;
 
-        // TODO: add some way to mark tasks as completed
-        let isCompleted = document.createElement('input');
-        isCompleted.setAttribute('type', 'checkbox');
-        isCompleted.setAttribute('id', `taskCheckbox${nodeId}`);
-        isCompleted.setAttribute('onClick', `obj.changeStatus(${nodeId})`);
-        newNode.appendChild(isCompleted);
+        newNode.appendChild(ToDo.createCheckbox(nodeId, nodeContent));
 
+        // TODO: Add new button to reveal more content
+        // TODO: Allow sending properly formated todo-list via mail
         let editButton = ToDo.createButtonNode('edit', `obj.updateTask(${nodeId})`);
         let deleteButton = ToDo.createButtonNode('x', `obj.deleteTask(${nodeId})`);
         editButton.style.color = 'black';
@@ -74,9 +70,19 @@ class ToDo {
         return button;
     }
 
-    changeStatus(taskId) {
+    static createCheckbox(taskId, content) {
+        let isCompleted = document.createElement('input');
+        isCompleted.setAttribute('type', 'checkbox');
+        isCompleted.setAttribute('id', `taskCheckbox${taskId}`);
+        isCompleted.setAttribute('onClick', `ToDo.changeStatus(${taskId})`);
+        return isCompleted;
+    }
+
+    // TODO: Fix the bug with droping "completed" status if node were added to the queue
+    static changeStatus(taskId) {
         let taskCheckbox = document.getElementById(`taskCheckbox${taskId}`).checked;
         document.getElementById(taskId).style.color = taskCheckbox ? 'green' : 'red';
+
     }
 
     consolePrint() {
