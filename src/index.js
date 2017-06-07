@@ -40,12 +40,13 @@ class ToDo {
     }
 
     static createNode(nodeId, nodeContent) {
+        let isCompleted = nodeContent[1];
         let newNode = document.createElement('li');
         let textNode = document.createTextNode(' ' + nodeContent[0]);
         newNode.style.color = nodeContent[1] ? 'green' : 'red';
         newNode.id = nodeId;
 
-        newNode.appendChild(ToDo.createCheckbox(nodeId, nodeContent));
+        newNode.appendChild(ToDo.createCheckbox(nodeId, isCompleted));
 
         // TODO: Add new button to reveal more content
         // TODO: Allow sending properly formated todo-list via mail
@@ -70,7 +71,7 @@ class ToDo {
         return button;
     }
 
-    static createCheckbox(taskId, content) {
+    static createCheckbox(taskId, status) {
         let isCompleted = document.createElement('input');
         isCompleted.setAttribute('type', 'checkbox');
         isCompleted.setAttribute('id', `taskCheckbox${taskId}`);
@@ -80,8 +81,19 @@ class ToDo {
 
     // TODO: Fix the bug with droping "completed" status if node were added to the queue
     static changeStatus(taskId) {
-        let taskCheckbox = document.getElementById(`taskCheckbox${taskId}`).checked;
-        document.getElementById(taskId).style.color = taskCheckbox ? 'green' : 'red';
+        let isChecked = this.listOfTasks[taskId][1];
+        console.log("Dupa :" + isChecked);
+        let taskCheckbox = document.getElementById(`taskCheckbox${taskId}`);
+        let textColor = document.getElementById(taskId).style.color;
+        if (isChecked) {
+            taskCheckbox.checked = false;
+            isChecked = 0;
+            textColor = 'blue';
+        } else {
+            taskCheckbox.checked = true;
+            isChecked = 1;
+            textColor = 'pink';
+        }
 
     }
 

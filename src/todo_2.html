@@ -17,14 +17,19 @@
                     <h2>List of tasks</h2>
                 </header>
                 <div>
-                    <input type="text" id="add-task" name="task" title="Add a new task to the list">
-                    <input type="submit" name="Add" onclick="obj.addTask()">
+                    <input type="text"
+                           id="add-task"
+                           name="task"
+                           title="Add a new task to the list"
+                           onkeydown="todo.isEnter()"
+                    >
+                    <input type="submit" name="Add" onclick="todo.addTask()">
 
                     <br><br>
 
-                    <ul id="todo-list">
-                        <p>Empty</p>
-                    </ul>
+                    <ol id="todo-list" reversed>
+                        Empty
+                    </ol>
                 </div>
             </div>
             <div class="col-xs-1 col-md-2 sidebar"></div>
