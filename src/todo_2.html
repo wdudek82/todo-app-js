@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!--<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">-->
+
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="./css/style.css">
     <title>TODO App JS</title>
 </head>
 <body>
-    <main class="container-fluid">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xs-1 col-md-2 sidebar"></div>
             <div class="col-xs-10 col-md-8">
@@ -16,25 +17,30 @@
                     <h1>TODO App JS</h1>
                     <h2>List of tasks</h2>
                 </header>
-                <div>
-                    <input type="text"
-                           id="add-task"
-                           name="task"
-                           title="Add a new task to the list"
-                           onkeydown="todo.isEnter()"
-                    >
-                    <input type="submit" name="Add" onclick="todo.addTask()">
+                <main>
+                    <div>
+                        <div class="input-group">
+                            <input type="text"
+                                   id="add-task"
+                                   class="form-control"
+                                   placeholder="Add new task"
+                                   onkeydown="todo.isEnter()">
+                            <span class="input-group-btn">
+                                <button class="btn btn-secondary" type="button" onclick="todo.addTask()">Add!</button>
+                            </span>
+                        </div>
+                    </div>
 
-                    <br><br>
+                    <br>
 
-                    <ol id="todo-list" reversed>
+                    <div id="todo-list">
                         Empty
-                    </ol>
-                </div>
+                    </div>
+                </main>
             </div>
             <div class="col-xs-1 col-md-2 sidebar"></div>
         </div>
-    </main>
+    </div>
 
     <!-- JavaScript -->
     <script src="todo_2.js"></script>

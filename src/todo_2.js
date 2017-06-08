@@ -3,7 +3,7 @@ class ToDo {
     constructor() {
         this.state = {
             list: [],
-            orderedList: document.getElementById('todo-list')
+            uList: document.getElementById('todo-list')
         }
     }
 
@@ -46,27 +46,29 @@ class ToDo {
             let taskCompleted = task[1][1];
 
 
-            let newNode = document.createElement('li');
+            let newNode = document.createElement('div');
             let textNode = document.createTextNode(taskContent);
 
-            newNode.setAttribute('onClick', `todo.taskClicked(${taskIndex})`);
-
-            newNode.style.color = taskCompleted === 1 ? 'green' : 'red';
+            newNode.classList.add('task');
+            if (taskCompleted) {
+                newNode.classList.add('completed')
+            } else {
+                newNode.classList.remove('completed');
+            }
 
             newNode.id = 'task-' + taskIndex;
+            newNode.setAttribute('onClick', `todo.taskClicked(${taskIndex})`);
             newNode.appendChild(textNode);
 
-            let ol = this.state.orderedList;
+            let ol = this.state.uList;
             ol.insertBefore(newNode, ol.firstChild);
-
-            // this.state.orderedList.appendChild(newNode);
 
         }
 
     }
 
     clearList() {
-        this.state.orderedList.innerHTML = null;
+        this.state.uList.innerHTML = null;
     }
 }
 
