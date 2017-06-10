@@ -20,13 +20,13 @@ body {
 }
 
 .sidebar {
-    background: #37e897;
+    background: #2b003a;
     height: 100vh;
 }
 
 .task-item {
     margin: 3px 0 0 0;
-    max-width: 500px;
+    /*max-width: 500px;*/
     height: 50px;
 
 }
@@ -34,6 +34,7 @@ body {
 .task-delete {
     display: inline-block;
     background: #ffdadc;
+    /*background: #ffffbc;*/
     padding: 10px;
     border-right: 1px solid #8e8f90;
 }
@@ -48,9 +49,12 @@ body {
     padding: 10px;
 }
 
+.edited {
+    padding: 7px;
+}
+
 .completed {
     background: #b5ff90;
-    /*text-decoration: line-through;*/
 }
 
 .task-edit {

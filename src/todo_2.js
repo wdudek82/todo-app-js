@@ -12,7 +12,11 @@ class ToDo {
         let inputContent = inputField.value;
 
         if (inputContent) {
-            this.state.list.push([inputContent, 0]);
+            this.state.list.push({
+                content: inputContent,
+                done: 0,
+                edited: 0,
+            });
             inputField.value = null;
 
             this.displayList();
@@ -21,53 +25,23 @@ class ToDo {
     }
 
     editTask(taskId) {
-        // redrawing allows editing one item at a time
-        this.displayList();
-
-        let task = document.getElementById('task-item-'+taskId);
-
-        console.log(task);
-        for (let child of task.childNodes) {
-            if (child.classList.contains('task-edit')) {
-                console.log(child);
-                child.remove();
-
-                let saveNode = this.createItem('div', {
-                    classNames: ['task-save'],
-                    attributes: [
-                        ['onClick', `todo.saveTask(${taskId})`]
-                    ]
-                });
-                let saveIcon = this.createItem('i', {
-                    classNames: ['fa', 'fa-floppy-o'],
-                    attributes: [['aria-hidden', 'true']]
-                });
-                saveNode.appendChild(saveIcon);
-
-                let cancelNode = this.createItem('div', {
-                    classNames: ['task-cancel'],
-                    attributes: [
-                        ['onClick', `todo.cancelEdit('task-item-${taskId}')`]
-                    ]
-                });
-                let cancelIcon = this.createItem('i', {
-                    classNames: ['fa', 'fa-ban'],
-                    attributes: [['aria-hidden', 'true']],
-                });
-                cancelNode.appendChild(cancelIcon);
-
-                task.appendChild(saveNode);
-                task.appendChild(cancelNode);
-            }
-        }
+        this.toggleClicked(taskId, 'edited');
     }
 
     saveTask(taskId) {
-        console.log('savind task ' + taskId);
+        let task = document.getElementById('task'+taskId);
+        let inputField = task.childNodes[0];
+        let taskContent = inputField.value;
+
+        this.state.list[taskId].content = taskContent;
+        this.state.list[taskId].edited = 0;
+        this.displayList();
     }
 
-    cancelEdit(taskItemId) {
-        console.log('cancelling editing task ' + taskItemId)
+    cancelEdit(taskId) {
+        let isEdited = this.state.list[taskId].edited;
+        this.toggleClicked(taskId, isEdited);
+        this.displayList();
     }
 
     deleteTask(taskId) {
@@ -75,16 +49,22 @@ class ToDo {
         this.displayList();
     }
 
-    taskClicked(taskId) {
-        // Changes 1 to 0 and vice versa
-        this.state.list[taskId][1] = 1 - this.state.list[taskId][1];
+    toggleClicked(taskId, mapKey) {
+        // Changes selected key' value 1 to 0 and vice versa
+        this.state.list[taskId][mapKey] = 1 - this.state.list[taskId][mapKey];
 
         todo.displayList();
     }
 
-    isEnter() {
+    isEnter(action, {itemId = null}) {
         if (event.keyCode === 13) {
-            this.addTask();
+            console.log(action);
+            if (action === 'add') {
+                this.addTask();
+            } else if (action === 'save') {
+                console.log(itemId);
+                this.saveTask(itemId);
+            }
         }
     }
 
@@ -95,11 +75,13 @@ class ToDo {
 
         for (let task of listOfTasks.entries()) {
             let taskIndex = task[0];
-            let taskContent = task[1][0];
-            let taskCompleted = task[1][1];
-            let taskId = 'task-' + taskIndex;
+            let taskContent = task[1].content;
+            let taskCompleted = task[1].done;
 
-            let taskNode = this.createItem('div', {id: 'task-item-' + taskIndex, classNames: ['task-item']});
+            let taskNode = this.createItem('div', {
+                id: 'task-item-' + taskIndex,
+                classNames: ['task-item']
+            });
 
             let deleteNode = this.createItem('div', {
                 classNames: ['task-delete'],
@@ -111,39 +93,93 @@ class ToDo {
             });
             deleteNode.appendChild(deleteIcon);
 
+            let edited = this.state.list[taskIndex].edited;
             let contentNode = this.createItem('div', {
                 text: taskContent,
-                id: taskId,
+                id: 'task' + taskIndex,
                 classNames: ['task-content']
             });
 
-            let editNode = this.createItem('div', {
-                classNames: ['task-edit'],
-                attributes: [['onClick', `todo.editTask(${taskIndex})`]]
-            });
-            let editIcon = this.createItem('i', {
-                classNames: ['fa', 'fa-pencil'],
-                attributes: [['aria-hidden', 'true']]
-            });
-            editNode.appendChild(editIcon);
+            if (!edited) {
+                contentNode.setAttribute('onClick', `todo.toggleClicked(${taskIndex}, 'done')`);
+            } else {
+                contentNode.classList.add('edited');
+                contentNode.innerText = null;
+
+                let inputField = document.createElement('input');
+                inputField.id = 'task-field-' + taskIndex;
+                inputField.type = 'text';
+                inputField.value = taskContent;
+                inputField.size = taskContent.length * 1.01;
+                inputField.setAttribute('onkeydown', `todo.isEnter('save', {itemId: ${taskIndex}})`);
+                contentNode.appendChild(inputField);
+            }
 
             if (taskCompleted) {
-                contentNode.classList.add('completed')
+                contentNode.classList.add('completed');
             } else {
                 contentNode.classList.remove('completed');
             }
 
-            contentNode.setAttribute('onClick', `todo.taskClicked(${taskIndex})`);
-
             taskNode.appendChild(deleteNode);
             taskNode.appendChild(contentNode);
-            taskNode.appendChild(editNode);
+
+            for (let button of this.createEdit(taskIndex)) {
+                taskNode.appendChild(button);
+            }
+
 
             let list = this.state.uList;
             list.insertBefore(taskNode, list.firstChild);
-
         }
 
+    }
+
+    createEdit(taskId) {
+        let edited = this.state.list[taskId].edited;
+        let buttons = [];
+
+        if(!edited) {
+            let editNode = document.createElement('div');
+            editNode.classList.add('task-edit');
+            editNode.setAttribute('onClick', `todo.editTask(${taskId})`);
+
+            let editIcon = document.createElement('i');
+            editIcon.classList.add('fa');
+            editIcon.classList.add('fa-pencil');
+            editIcon.setAttribute('aria-hidden', 'true');
+
+            editNode.appendChild(editIcon);
+
+            buttons.push(editNode);
+        } else {
+            let saveNode = document.createElement('div');
+            saveNode.classList.add('task-save');
+            saveNode.setAttribute('onClick', `todo.saveTask(${taskId})`);
+
+            let saveIcon = document.createElement('i');
+            saveIcon.classList.add('fa');
+            saveIcon.classList.add('fa-floppy-o');
+            saveIcon.setAttribute('aria-hidden', 'true');
+
+            saveNode.appendChild(saveIcon);
+
+            let cancelNode = this.createItem('div', {
+                classNames: ['task-cancel'],
+                attributes: [
+                    ['onClick', `todo.toggleClicked(${taskId}, 'edited')`]
+                ]
+            });
+            let cancelIcon = this.createItem('i', {
+                classNames: ['fa', 'fa-ban'],
+                attributes: [['aria-hidden', 'true']],
+            });
+            cancelNode.appendChild(cancelIcon);
+
+            buttons.push(saveNode, cancelNode);
+        }
+
+        return buttons;
     }
 
     createItem(selector, {
