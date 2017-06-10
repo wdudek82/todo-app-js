@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
 
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="./css/style.css">
     <title>TODO App JS</title>
@@ -19,11 +20,11 @@
                 </header>
                 <main>
                     <div>
-                        <div class="input-group">
+                        <div id="add-task-group" class="input-group">
                             <input type="text"
                                    id="add-task"
                                    class="form-control"
-                                   placeholder="Add new task"
+                                   placeholder="Add a new task"
                                    onkeydown="todo.isEnter()">
                             <span class="input-group-btn">
                                 <button class="btn btn-secondary" type="button" onclick="todo.addTask()">Add!</button>

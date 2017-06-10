@@ -1,5 +1,6 @@
 body {
-    color: #4b4c4d;
+    background: #fff8f7;
+    color: #777770;
     font-family: Lato, sans-serif;
     font-variant: normal;
     font-weight: 100;
@@ -15,23 +16,77 @@ body {
 }
 
 .todo-list {
+    max-width: 500px;
 }
 
 .sidebar {
-    background: lightblue;
+    background: #37e897;
     height: 100vh;
 }
 
-.task {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: #cff4f1;
+.task-item {
+    margin: 3px 0 0 0;
+    max-width: 500px;
     height: 50px;
-    margin: 3px 100px 0 0;
-    padding: 0 50px;
+
+}
+
+.task-delete {
+    display: inline-block;
+    background: #ffdadc;
+    padding: 10px;
+    border-right: 1px solid #8e8f90;
+}
+
+.task-delete:hover {
+    background: #ff988e;
+}
+
+.task-content {
+    display: inline-block;
+    background: #ffffbc;
+    padding: 10px;
 }
 
 .completed {
-    text-decoration: line-through;
+    background: #b5ff90;
+    /*text-decoration: line-through;*/
 }
+
+.task-edit {
+    display: inline-block;
+    background: #ffffbc;
+    padding: 10px;
+    border-left: 1px solid #8e8f90;
+}
+
+.task-edit:hover {
+    background: #ffec5e;
+}
+
+.task-save {
+    display: inline-block;
+    background: #e1ffc7;
+    padding: 10px;
+    border-left: 1px solid #8e8f90;
+}
+
+.task-save:hover {
+    background: #b5ff90;
+}
+
+.task-cancel {
+    display: inline-block;
+    background: #ffdadc;
+    padding: 10px;
+    border-left: 1px solid #8e8f90;
+}
+
+.task-cancel:hover {
+    background: #ff988e;
+}
+
+#add-task-group {
+    max-width: 400px;
+}
+
