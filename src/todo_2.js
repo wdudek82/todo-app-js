@@ -3,8 +3,42 @@ class ToDo {
     constructor() {
         this.state = {
             list: [],
-            uList: document.getElementById('todo-list')
+            uList: document.getElementById('todo-list'),
+            filter: -1  // filters: -1 -> all, 0 -> incomplete; 1 -> completed
         }
+    }
+
+    filterTasks(num) {
+        this.state.filter = num;
+
+        for (let i = -1; i < 2; i++) {
+            let item = document.getElementById(`filter${i}`);
+
+            if (i === num) {
+                item.classList.add('filter-active');
+            } else {
+                item.classList.remove('filter-active');
+            }
+        }
+        this.displayList();
+    }
+
+    countTasks() {
+        let status = document.getElementById('tasks-count');
+        let taskList = this.state.list;
+        let taskCompleted = taskList.filter(x => x.done === 1);
+        let tasksLeft = taskList.length - taskCompleted.length;
+
+        let msg = '';
+        if (taskList.length === 0) {
+            msg = 'The list is empty';
+        } else if (tasksLeft > 0) {
+            msg = `${tasksLeft}/${taskList.length} items left`;
+        } else {
+            msg = 'Done!';
+        }
+
+        status.innerText = msg;
     }
 
     addTask() {
@@ -21,7 +55,6 @@ class ToDo {
 
             this.displayList();
         }
-
     }
 
     editTask(taskId) {
@@ -31,9 +64,8 @@ class ToDo {
     saveTask(taskId) {
         let task = document.getElementById('task'+taskId);
         let inputField = task.childNodes[0];
-        let taskContent = inputField.value;
 
-        this.state.list[taskId].content = taskContent;
+        this.state.list[taskId].content = inputField.value;
         this.state.list[taskId].edited = 0;
         this.displayList();
     }
@@ -58,11 +90,9 @@ class ToDo {
 
     isEnter(action, {itemId = null}) {
         if (event.keyCode === 13) {
-            console.log(action);
             if (action === 'add') {
                 this.addTask();
             } else if (action === 'save') {
-                console.log(itemId);
                 this.saveTask(itemId);
             }
         }
@@ -70,13 +100,19 @@ class ToDo {
 
     displayList() {
         this.clearList();
+        this.countTasks();
 
         let listOfTasks = this.state.list;
+        let filter = this.state.filter;
 
         for (let task of listOfTasks.entries()) {
             let taskIndex = task[0];
             let taskContent = task[1].content;
             let taskCompleted = task[1].done;
+
+            if (filter !== -1 && filter !== taskCompleted) {
+                continue;
+            }
 
             let taskNode = this.createItem('div', {
                 id: 'task-item-' + taskIndex,
@@ -132,7 +168,6 @@ class ToDo {
             let list = this.state.uList;
             list.insertBefore(taskNode, list.firstChild);
         }
-
     }
 
     createEdit(taskId) {

@@ -1,0 +1,89 @@
+.todo-list {
+  max-width: 500px; }
+
+.task-item {
+  margin: 3px 0 0 0;
+  height: 50px; }
+
+.task-delete {
+  display: inline-block;
+  background: #ffdadc;
+  padding: 10px;
+  border-right: 1px solid #777770; }
+
+.task-delete:hover {
+  background: #ff988e; }
+
+.task-content {
+  display: inline-block;
+  background: #ffffbc;
+  padding: 10px; }
+
+.edited {
+  padding: 7px; }
+
+.completed {
+  background: #f7ffe6;
+  color: #a9a9a0;
+  text-decoration: line-through; }
+
+.task-edit {
+  display: inline-block;
+  background: #ffffbc;
+  padding: 10px;
+  border-left: 1px solid #777770; }
+
+.task-edit:hover {
+  background: #ffec5e; }
+
+.task-save {
+  display: inline-block;
+  background: #e1ffc7;
+  padding: 10px;
+  border-left: 1px solid #777770; }
+
+.task-save:hover {
+  background: #b5ff90; }
+
+.task-cancel {
+  display: inline-block;
+  background: #ffdadc;
+  padding: 10px;
+  border-left: 1px solid #777770; }
+
+.task-cancel:hover {
+  background: #ff988e; }
+
+#add-task-group {
+  max-width: 400px; }
+
+body {
+  background: #fff8f7;
+  color: #777770;
+  font-family: Lato, sans-serif;
+  font-variant: normal;
+  font-weight: 100;
+  font-size: 2em; }
+
+.btn {
+  border-radius: 0; }
+
+.form-control {
+  border-radius: 0; }
+
+.sidebar {
+  background: #2b003a;
+  height: 100vh; }
+
+.filter-tasks a {
+  color: #9d50b9;
+  text-decoration: none; }
+.filter-tasks a:hover {
+  color: #dea4e2;
+  text-decoration: none; }
+.filter-tasks a.filter-active {
+  color: #7300a6;
+  font-weight: 600;
+  text-decoration: none; }
+
+/*# sourceMappingURL=base.css.map */

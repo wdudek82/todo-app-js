@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="./css/style.css">
+    <!--<link rel="stylesheet" href="./css/style.css">-->
+    <link rel="stylesheet" href="./css/base.css">
     <title>TODO App JS</title>
 </head>
 <body>
@@ -32,11 +33,19 @@
                         </div>
                     </div>
 
+                    <div class="btn-group filter-tasks">
+                        <button id="filter-1" class="btn btn-default btn-xs" onclick="todo.filterTasks(-1)" class="filter-active">all</button>
+                        <button id="filter1" class="btn btn-default btn-xs" onclick="todo.filterTasks(1)">completed</button>
+                        <button id="filter0" class="btn btn-default btn-xs" onclick="todo.filterTasks(0)">incomplete</button>
+                    </div>
+
+                    <div>
+                        <span id="tasks-count">The list is empty</span>
+                    </div>
+
                     <br>
 
-                    <div id="todo-list">
-                        Empty
-                    </div>
+                    <div id="todo-list"></div>
                 </main>
             </div>
             <div class="col-xs-1 col-md-2 sidebar"></div>

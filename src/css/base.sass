@@ -1,0 +1,44 @@
+@import _todo-list
+
+$font-stack: Lato, sans-serif
+$body-bg: #fff8f7
+$text: #777770
+$side-panels-bg: #2b003a
+$link: #9d50b9
+//$side-panels-hover-bg: #15003a
+$link-hover: #dea4e2
+$link-active: #7300a6
+
+
+body
+  background: #fff8f7
+  color: $text
+  font-family: $font-stack
+  font-variant: normal
+  font-weight: 100
+  font-size: 2em
+
+.btn
+  border-radius: 0
+
+.form-control
+  border-radius: 0
+
+.sidebar
+  background: $side-panels-bg
+  height: 100vh
+
+.filter-tasks
+  a
+    color: $link
+    text-decoration: none
+
+  a:hover
+    color: $link-hover
+    text-decoration: none
+
+  a.filter-active
+    color: $link-active
+    font-weight: 600
+    text-decoration: none
+

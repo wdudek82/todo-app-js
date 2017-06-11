@@ -1,0 +1,64 @@
+$text: #777770
+$text-fading: #a9a9a0
+$task-green-bg: #e1ffc7
+$task-green-hover-bg: #b5ff90
+$task-yellow-bg: #ffffbc
+$task-yellow-fading-bg: #f7ffe6
+$task-yellow-hover-bg: #ffec5e
+$task-red-bg: #ffdadc
+$task-red-hover-bg: #ff988e
+
+=task-styling($color)
+  display: inline-block
+  background: $color
+  padding: 10px
+
+
+.todo-list
+  max-width: 500px
+
+.task-item 
+  margin: 3px 0 0 0
+  height: 50px
+
+.task-delete
+  +task-styling($task-red-bg)
+  border-right: 1px solid $text
+
+.task-delete:hover 
+  background: $task-red-hover-bg
+
+.task-content
+  +task-styling($task-yellow-bg)
+
+.edited 
+  padding: 7px
+
+.completed 
+  background: $task-yellow-fading-bg
+  color: $text-fading
+  text-decoration: line-through
+
+.task-edit
+  +task-styling($task-yellow-bg)
+  border-left: 1px solid $text
+
+.task-edit:hover 
+  background: $task-yellow-hover-bg
+
+.task-save
+  +task-styling($task-green-bg)
+  border-left: 1px solid $text
+
+.task-save:hover 
+  background: $task-green-hover-bg
+
+.task-cancel 
+  +task-styling($task-red-bg)
+  border-left: 1px solid $text
+
+.task-cancel:hover 
+  background: $task-red-hover-bg
+
+#add-task-group 
+  max-width: 400px
