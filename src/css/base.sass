@@ -18,6 +18,9 @@ body
   font-weight: 100
   font-size: 2em
 
+button:focus
+  outline: 0
+
 .btn
   border-radius: 0
 
@@ -29,16 +32,17 @@ body
   height: 100vh
 
 .filter-tasks
-  a
+  button
     color: $link
     text-decoration: none
 
-  a:hover
-    color: $link-hover
+  button:hover
+    background: $link-hover
+    color: $link
     text-decoration: none
 
-  a.filter-active
+  button.filter-active
+    background: $link-hover
     color: $link-active
-    font-weight: 600
     text-decoration: none
 

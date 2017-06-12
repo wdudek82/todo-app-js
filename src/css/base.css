@@ -65,6 +65,9 @@ body {
   font-weight: 100;
   font-size: 2em; }
 
+button:focus {
+  outline: 0; }
+
 .btn {
   border-radius: 0; }
 
@@ -75,15 +78,16 @@ body {
   background: #2b003a;
   height: 100vh; }
 
-.filter-tasks a {
+.filter-tasks button {
   color: #9d50b9;
   text-decoration: none; }
-.filter-tasks a:hover {
-  color: #dea4e2;
+.filter-tasks button:hover {
+  background: #dea4e2;
+  color: #9d50b9;
   text-decoration: none; }
-.filter-tasks a.filter-active {
+.filter-tasks button.filter-active {
+  background: #dea4e2;
   color: #7300a6;
-  font-weight: 600;
   text-decoration: none; }
 
 /*# sourceMappingURL=base.css.map */

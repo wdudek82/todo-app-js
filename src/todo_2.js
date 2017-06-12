@@ -89,12 +89,18 @@ class ToDo {
     }
 
     isEnter(action, {itemId = null}) {
-        if (event.keyCode === 13) {
+        let keyPressed = event.keyCode;
+        let active = document.activeElement;
+        if (keyPressed === 13) {
             if (action === 'add') {
                 this.addTask();
             } else if (action === 'save') {
                 this.saveTask(itemId);
             }
+        } else if (keyPressed === 27 && active.nodeName === 'INPUT') {
+            // TODO: Fix canceling ediding task by pressing esc button
+            let itemId = active.id.replace('task-field-', '');
+            this.cancelEdit(itemId);
         }
     }
 
@@ -252,3 +258,6 @@ class ToDo {
 
 
 let todo = new ToDo();
+
+// TODO: make the app responsive
+// TODO: change bin icon to checkbox - now it's too easy to delete items by mistake
